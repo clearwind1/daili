@@ -5,14 +5,11 @@
 
 class GameData {
 
-    public GamePause: boolean;              //游戏暂停标志    
-    public GameOver: boolean;               //游戏结束标志
     public isLoadingend: boolean;           //游戏加载进度结束标志
     public gamesound: MySound[] = [];       //游戏声音
-    public GameLevel: number;               //游戏等级
-    public gamescore: number;
-    public currgamescore: number[] = [];    //分数，关卡，最大连击数
-    public lastfruit: number;
+    public GameLevel: number;               //代理等级
+    public TotalIncome: number;             //累积收入
+    public TodayIncome: number;             //今日收入
 
     public constructor() {
         this.init();
@@ -20,13 +17,10 @@ class GameData {
 
     private init()
     {
-        this.GamePause = false;
-        this.GameOver = false;
         this.isLoadingend = false;
-        this.gamescore = 1000;
-        this.currgamescore = [0, 1, 0];
-        this.lastfruit = 0;
-        this.GameLevel = 1;
+        this.GameLevel = -1;
+        this.TotalIncome = 0;
+        this.TodayIncome = 0;
     }
 
     private static _inst:GameData = null;

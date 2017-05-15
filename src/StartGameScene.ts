@@ -4,94 +4,113 @@
 
 class StartGameScene extends GameUtil.BassPanel {
 
+    private bottombtn: GameUtil.Menu[];
+    private bottomselectbtn: GameUtil.Menu = null;
+    private otherpagecon: egret.DisplayObjectContainer;
+
     public constructor() {
         super();
     }
 
     public init() {
 
-        var covshap: egret.Shape = GameUtil.createRect(0, 0, this.mStageW, this.mStageH, 1, 0xffffff);
-        this.addChild(covshap);
-
-        this.showmingpian();
-
-        // window.location.href = 'weixin://';
+        // var param: Object = {
+        //     id: '0000',
+        //     agentParentId:'123431'
+        // }
+        // GameUtil.Http.getinstance().send(param, '/api/AgentUser/updateAgentUserOne', (data) => { console.log(data); }, this);        
 
         // return;
 
-        //         var param: Object = {
-        //             fname: 'yang',
-        //             age: 18
-        //         }
-        //         GameUtil.Http.getinstance().send(param, '', (data) => { console.log(data['a']); }, this,'localhost/test.php');
-        // // public send( param:any, file?:string, loaded:Function = null, thisObj:any = null,url:string=GameConfig.IP):
-        //         return;
+        this.bottombtn = [];
 
-        //   var data: any = {
-        //         'code': 1
-        //     };
-        //     this.show(data);
+        document.title = '来一局助手';
+
+        var covshap: egret.Shape = GameUtil.createRect(0, 0, this.mStageW, this.mStageH, 1, 0xffffff);
+        this.addChild(covshap);
+
+        this.showhomepage();
+
+        this.otherpagecon = new egret.DisplayObjectContainer;
+        this.addChild(this.otherpagecon);
+
+
+        //底部导航栏        
+        var bottomshap: egret.Shape = GameUtil.createRect(0, this.mStageH, this.mStageW, 160, 1, 0x9e9b9b);
+        bottomshap.$setAnchorOffsetY(160);
+        this.addChild(bottomshap);
+        var btntext: string[] = ['首页', '代理', '玩家', '房卡', '我的'];
+        for (var i: number = 0; i < 5; i++) {
+            this.bottombtn[i] = new GameUtil.Menu(this, 'img_png', 'img_png', this.showpage, [i]);
+            this.bottombtn[i].x = this.mStageW / 2 + (i - 2) * 100;
+            this.bottombtn[i].y = this.mStageH - 110;
+            this.bottombtn[i].addButtonText(btntext[i], 25,0,50);
+            this.addChild(this.bottombtn[i]);
+        }
+        this.bottomselectbtn = this.bottombtn[0];
+        this.bottomselectbtn.getBtnText().textColor = 0xff0000;
+        this.showpage(0);
+
+    }
+    private showpage(btnid: number) {
+        this.bottomselectbtn.getBtnText().textColor = 0x000000;
+        this.bottombtn[btnid].getBtnText().textColor = 0xff0000;
+        this.bottomselectbtn = this.bottombtn[btnid];
+
+        if (btnid == 0) {
+            this.otherpagecon.removeChildren();
+        }
+        
     }
     /**
-     *显示名片
+     *主页
      */
-    private textbtn: GameUtil.Menu[];
-    private selectbtn: GameUtil.Menu = null;
-    private mpcontant: egret.DisplayObjectContainer;
+    private showhomepage() {
 
-    private showmingpian() {
-        this.textbtn = [];
-        this.mpcontant = new egret.DisplayObjectContainer();
-        this.addChild(this.mpcontant);
-        document.title = '二维码名片';
+        var topshap: egret.Shape = GameUtil.createRect(0, 0, this.mStageW, 300, 1, 0x9e9b9b);
+        this.addChild(topshap);        
 
-        var btntext: string[] = ['招区域代理', '招一级代理', '招二级代理', '店铺名片'];
-        for (var i: number = 0; i < 4; i++) {
-            this.textbtn[i] = new GameUtil.Menu(this, '', '', this.showmpcontant, [i]);
-            this.textbtn[i].addButtonText(btntext[i], 40);
-            this.addChild(this.textbtn[i]);
-            this.textbtn[i].x = this.mStageW / 2 - 200 + 400 * (i % 2);
-            this.textbtn[i].y = 100 + 70 * Math.floor(i / 2);
-        }
-        this.selectbtn = this.textbtn[0];
-        this.showmpcontant(0);
+        var mptextbtn: GameUtil.Menu = new GameUtil.Menu(this, '', '', this.showmingpian);
+        mptextbtn.addButtonText('名片', 35);
+        mptextbtn.x = 50;
+        mptextbtn.y = 70;
+        this.addChild(mptextbtn);
+
+        var mrtextbtn: GameUtil.Menu = new GameUtil.Menu(this, '', '', this.showmoneyrecord);
+        mrtextbtn.addButtonText('收入记录', 35);
+        mrtextbtn.x = this.mStageW - 30;
+        mrtextbtn.y = 70;
+        this.addChild(mrtextbtn);
+        mrtextbtn.$setAnchorOffsetX(mrtextbtn.width / 2);
+        
+        var totalget: GameUtil.MyTextField = new GameUtil.MyTextField(this.mStageW / 2, 110, 40);
+        totalget.setText('累积收入');
+        this.addChild(totalget);
+        var incometext: GameUtil.MyTextField = new GameUtil.MyTextField(this.mStageW / 2, 155, 40);
+        incometext.setText(GameData._i().TotalIncome + '元');
+        this.addChild(incometext);
+
+        var todayincomtip: GameUtil.MyTextField = new GameUtil.MyTextField(this.mStageW / 2 - 200, 200, 30);
+        todayincomtip.setText('今日收入');
+        this.addChild(todayincomtip);
+        var todayincomtip: GameUtil.MyTextField = new GameUtil.MyTextField(this.mStageW / 2 - 200, 235, 30);
+        todayincomtip.setText(GameData._i().TodayIncome+'元');
+        this.addChild(todayincomtip);
+
+        var cangettip: GameUtil.MyTextField = new GameUtil.MyTextField(this.mStageW / 2 + 200, 200, 30);
+        cangettip.setText('可提现');
+        this.addChild(cangettip);
+        var cangettip: GameUtil.MyTextField = new GameUtil.MyTextField(this.mStageW / 2 + 200, 235, 30);
+        cangettip.setText(GameData._i().TotalIncome+'元');
+        this.addChild(cangettip);
     }
-    
-    private showmpcontant(mpid: number) {
-        console.log('mpid====', mpid);
-        this.selectbtn.getBtnText().textColor = 0x000000;
-        this.textbtn[mpid].getBtnText().textColor = 0x2200ff;
-        this.selectbtn = this.textbtn[mpid];
-        //this.selectbtn = textbtn;
-
-        this.mpcontant.removeChildren();
-
-        var wkuan: egret.Shape = GameUtil.createRect(this.mStageW / 2, this.mStageH / 2, 500, 650, 1, 0x000000);
-        wkuan.$setAnchorOffsetX(wkuan.width / 2);
-        wkuan.$setAnchorOffsetY(wkuan.height / 2);
-        this.mpcontant.addChild(wkuan);
-
-        var nkuan: egret.Shape = GameUtil.createRect(this.mStageW / 2, this.mStageH / 2, 450, 600, 1, 0xffffff);
-        nkuan.$setAnchorOffsetX(nkuan.width / 2);
-        nkuan.$setAnchorOffsetY(nkuan.height / 2);
-        this.mpcontant.addChild(nkuan);
-
-        var texttip: string[] = ['招募来一局区域代理', '招募来一局一级代理', '招募来一局二级代理', '来一局助手房卡直充'];
-        var textttf: GameUtil.MyTextField = new GameUtil.MyTextField(this.mStageW / 2 - 200, this.mStageH / 2 - 250, 30, 0);
-        textttf.setText(texttip[mpid]);
-        this.mpcontant.addChild(textttf);
-
-        var textttf2: GameUtil.MyTextField = new GameUtil.MyTextField(this.mStageW / 2, this.mStageH / 2 + 250, 30);
-        textttf2.setText('微信扫一扫识别注册');
-        this.mpcontant.addChild(textttf2);
-
-        var mpqr = qr.QRCode.create('https://www.baidu.com', 0x000000, 400, 400);
-        mpqr.$setAnchorOffsetX(mpqr.width/2);
-        mpqr.$setAnchorOffsetY(mpqr.height/2);
-        mpqr.x = this.mStageW / 2;
-        mpqr.y = this.mStageH / 2;
-        this.mpcontant.addChild(mpqr);
-
+    //名片显示
+    private showmingpian() {
+        this.otherpagecon.addChild(new MPPageShow());
+    }
+    //收入记录显示
+    private showmoneyrecord() {
+        
     }
 
     private show(data: any) {

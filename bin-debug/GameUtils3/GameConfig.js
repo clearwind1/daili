@@ -57,7 +57,7 @@ var GameConfig = (function () {
     };
     /**基本配置 */
     GameConfig.DEBUG = true;
-    GameConfig.IP = "api.h5.gamexun.com"; //http连接地址
+    GameConfig.IP = "dev.laiju.189m.com/wuu"; //http连接地址
     GameConfig.GAMENAME = 'diamstorm'; //游戏在服务器上的名字
     GameConfig.SERVERNAME = 'children'; //服务器连接名
     GameConfig.FIRSTGAME = 'firstgame'; //第一次进游戏标示

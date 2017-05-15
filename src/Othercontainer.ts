@@ -8,7 +8,7 @@ class Othercontainer extends GameUtil.BassPanel {
 
     public init() {
         this.touchEnabled = true;
-        var shap: egret.Shape = GameUtil.createRect(0, 0, this.mStageW, this.mStageH, 0.6);
+        var shap: egret.Shape = GameUtil.createRect(0, 0, this.mStageW, this.mStageH, 1, 0xffffff);
         this.addChild(shap);
 
         this.show();

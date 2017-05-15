@@ -9,7 +9,7 @@ var Othercontainer = (function (_super) {
     var d = __define,c=Othercontainer,p=c.prototype;
     p.init = function () {
         this.touchEnabled = true;
-        var shap = GameUtil.createRect(0, 0, this.mStageW, this.mStageH, 0.6);
+        var shap = GameUtil.createRect(0, 0, this.mStageW, this.mStageH, 1, 0xffffff);
         this.addChild(shap);
         this.show();
     };

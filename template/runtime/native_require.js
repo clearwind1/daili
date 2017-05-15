@@ -40,6 +40,7 @@ var game_file_list = [
 	"bin-debug/GameUtils3/WaitServerPanel.js",
 	"bin-debug/GameUtils3/utils.js",
 	"bin-debug/LoadingUI.js",
+	"bin-debug/MPPageShow.js",
 	"bin-debug/Main.js",
 	"bin-debug/SharePageShow.js",
 	"bin-debug/StartGameScene.js",

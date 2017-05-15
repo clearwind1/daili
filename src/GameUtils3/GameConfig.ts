@@ -11,7 +11,7 @@ enum SceneEffect { NullAction, CrossLeft, TransAlpha, OpenDoor };
 class GameConfig {
     /**基本配置 */
     public static DEBUG: boolean = true;
-    public static IP: string = "api.h5.gamexun.com";        //http连接地址
+    public static IP: string = "dev.laiju.189m.com/wuu";        //http连接地址
     public static GAMENAME: string = 'diamstorm';           //游戏在服务器上的名字
     public static SERVERNAME: string = 'children';          //服务器连接名
     public static FIRSTGAME: string = 'firstgame';          //第一次进游戏标示

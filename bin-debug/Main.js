@@ -38,8 +38,10 @@ var Main = (function (_super) {
         //PlayerData._i().UserInfo.openid = GameUtil.getQueryString('openid');
         //PlayerData._i().UserInfo.shareopenid = GameUtil.getQueryString('shareopenid');
         if (!GameConfig.DEBUG) {
+            window.location.href = 'http://dev.laiju.189m.com/api/AgentUser/weixinDeg';
         }
         else {
+            //window.location.href = 'http://dev.laiju.189m.com/api/AgentUser/weixinDeg';
             this.stage.scaleMode = egret.StageScaleMode.FIXED_NARROW;
             this.stage.setContentSize(GameConfig.DesignWidth, GameConfig.DesignHeight);
             GameUtil.GameScene.init(this.stage);
@@ -53,6 +55,7 @@ var Main = (function (_super) {
     p.createGameScene = function () {
         //GameConfig.MoreGameName = RES.getRes('moregamename_json');
         //console.log('GameConfig.MoreGameName======', GameConfig.MoreGameName);
+        GameData._i().GameLevel = 1;
         GameUtil.Http.getinstance();
         GameUtil.GameScene.runscene(new StartGameScene());
     };
